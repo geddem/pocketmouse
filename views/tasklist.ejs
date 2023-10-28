@@ -1,0 +1,68 @@
+<%- include("header.ejs") %>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+
+
+    <!-- Latest Sortable -->
+    <!-- https://sortablejs.github.io/Sortable/ -->
+    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+
+
+    <!-- Simple List -->
+    <div id="simpleList" class="list-group">
+        <%
+        if( tasks.length > 0)
+        {
+            tasks.forEach(function(task)
+            {
+            %>
+            <div class="list-group-item" id="<%=task.id%>">
+                <i class="<%=task.icon%>"></i> &nbsp;&nbsp;
+                <span><%=task.name%></span>
+            </div>
+            <%
+            });
+        }
+        else
+        {
+        }
+        %>
+                </ul>
+    </div>
+
+
+    <script language="Javascript">
+        function createOrderList(items) {
+
+            var result = "";
+            for (var i = 0; i < items.length; i++) {
+                result += items[i].id;
+                if (i != items.length - 1) {
+                    result += ",";
+                }
+            }
+            return result;
+        }
+
+        // Simple list
+        Sortable.create(simpleList, {
+            onUpdate: function( /**Event*/ evt) {
+
+                var result = createOrderList(evt.to.getElementsByTagName('div'));
+
+                fetch("/reorder", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        operation: "reorder",
+                        content: result
+                    }),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                    }
+                }) /*.then((response) => alert(response.status))*/ ;
+
+            }
+        });
+    </script>
+    <%- include("footer.ejs") %>
