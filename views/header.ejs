@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <title>Pocketmouse</title>
     <link rel="stylesheet" href="include/style.css">
+    <link rel="stylesheet" href="include/form_input.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <!--<script src="https://kit.fontawesome.com/e7e4ac343a.js" crossorigin="anonymous"></script>-->
@@ -12,5 +13,14 @@
     <link href="include/fontawesome/css/brands.css" rel="stylesheet">
     <link href="include/fontawesome/css/solid.css" rel="stylesheet">
 
-    <script src="include/script.js" defer></script>
+    <script src="include/sortable.js" defer></script>
 </head>
+
+<body>
+
+    <div class="navbar">
+        <a href="/" <%if(active=="Tasks" ){%>class="active"<%}%>><i class="fa fa-fw fa-home"></i> Tasks</a>
+        <a href="/create" <%if(active=="Create" ){%>class="active"<%}%>><i class="fa fa-fw fa-search"></i> Create</a>
+        <a href="#" <%if(active=="Edit" ){%>class="active"<%}%>><i class="fa fa-fw fa-envelope"></i> Modify</a>
+        <a href="#" <%if(active=="Delete" ){%>class="active"<%}%>><i class="fa fa-fw fa-user"></i> Misc <%=active%></a>
+    </div>

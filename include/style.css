@@ -10,7 +10,6 @@
 
 body {
     display: flex;
-    align-items: center;
     justify-content: center;
     min-height: 100vh;
     background: #445566;
@@ -69,4 +68,44 @@ body {
 .item.dragging :where(.details,
 i) {
     opacity: 0;
+}
+
+
+/* ========== NAVBAR ====*/
+
+
+/* Style the navigation bar */
+
+.navbar {
+    width: 100%;
+    height: min-content;
+    background-color: #aaa;
+    overflow: auto;
+}
+
+
+/* Navbar links */
+
+.navbar a {
+    float: left;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+
+/* Navbar links on mouse-over */
+
+.navbar a:hover {
+    background-color: #1B2E41;
+    color: white;
+}
+
+
+/* Current/active navbar link */
+
+.active {
+    background-color: #445566;
 }

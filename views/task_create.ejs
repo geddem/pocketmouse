@@ -1,0 +1,15 @@
+<%- include("header.ejs",  {active: "Create"})%>
+
+    <div class="container">
+        <form id="pocketmouse" action="/do_create" method="post">
+
+            <h3>Create New Task</h3>
+            <h4>Yay! Get Organized</h4>
+            
+            <%- include("templates/task_form.ejs",  {task: {name:""}})%>
+
+            <p class="copyright">Cool link <a href="https://desertowlgames.com" target="_blank">Goes Here</a></p>
+        </form>
+    </div>
+
+    <%- include("footer.ejs") %>

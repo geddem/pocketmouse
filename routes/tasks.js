@@ -2,20 +2,7 @@ var express = require('express');
 var router = express.Router();
 var database = require("../database");
 
-/*
-router.get("/sample", function(request, response, next) {
-    var query = "SELECT * FROM burrow.tasks";
 
-    database.query(query, function(err, data) {
-        if (err) {
-            throw error;
-        } else {
-            // this used to render a view
-            response.render("sample_data", { title: "NOde js shit", action: 'list', sampleData: data });
-        }
-    });
-});
-*/
 router.get("/", function(request, response, next) {
 
     // 
@@ -26,7 +13,7 @@ router.get("/", function(request, response, next) {
             throw error;
         } else {
             // this used to render a view
-            response.render("tasklist", { title: "Display The Task List", action: 'list', tasks: data });
+            response.render("task_list", { title: "Display The Task List", action: 'list', tasks: data });
         }
     });
 
@@ -47,17 +34,48 @@ router.post("/reorder", function(request, response, next) {
                 throw err;
             }
         });
-
-        console.log("   + " + query);
     }
 
-    response.send('Add Sample Data');
-
+    // Everything is ok!
+    response.status(200);
 });
 
-router.get("/add", function(request, response, next) {
+router.get("/edit", function(request, response, next) {
 
-    response.send('Add Sample Data');
+    // Get the task id
+    var taskId = request.query.taskId;
+
+    var query = "SELECT * FROM burrow.tasks WHERE id = " + taskId;
+
+    database.query(query, function(err, data) {
+        if (err) {
+            throw err;
+        } else {
+            // this used to render a view
+            response.render("task_edit", { task: data[0]});
+        }
+    });
+});
+
+router.get("/create", function(request, response, next) {
+    response.render("task_create");
+});
+
+router.post("/do_create", function(request, response, next) {
+
+    var query = "INSERT INTO burrow.tasks (name, description) VALUES (\"" + request.body.name + "\", \"" + request.body.description + "\" )";
+    console.log(query);
+
+    database.query(query, function(err, data) {
+        if (err) {
+            throw error;
+        } else {
+            // Everything is ok!
+            response.redirect('/');
+            return;
+        }
+    });
+
 
 });
 
