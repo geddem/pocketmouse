@@ -9,40 +9,11 @@
     <!-- https://sortablejs.github.io/Sortable/ -->
     <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
 
-    <div class="container">
-        <div id="pocketmouse">
-
-            <h3>Current Tasks</h3>
-            <h4>Create a new pocketmouse task</h4>
-            <!-- Simple List -->
-            <div id="simpleList" class="list-group">
-                <%
-                if( tasks.length > 0)
-                {
-                    tasks.forEach(function(task)
-                    {
-                    %>
-                    <div class="list-group-item" id="<%=task.id%>">
-                        <a href="/edit?taskId=<%=task.id%>"><i class="<%=task.icon%>"></i></a>&nbsp;&nbsp;
-                        <span><%=task.name%></span>
-                        <i class="fa-solid fa-grip-vertical" style="float: right"></i>
-                    </div>
-                    <%
-                    });
-                }
-                else
-                {
-                }
-                %>
-            </div>
-
-            <button name="submit" type="submit" id="pocketmouse-submit" data-submit="...Sending">Submit</button>
-        </div>
-    </div>
+    <%- include("templates/tasklist.ejs",  {title: "Current Tasks", subtitle:"Do work!", tasks: tasks})%>
 
     <script language="Javascript">
         // Create the csv to reorder the list
-        function createOrderList(items) {
+        function generateCSV(items) {
 
             var result = "";
             for (var i = 0; i < items.length; i++) {
@@ -58,7 +29,7 @@
         Sortable.create(simpleList, {
             onUpdate: function( /**Event*/ evt) {
 
-                var result = createOrderList(evt.to.getElementsByTagName('div'));
+                var result = generateCSV(evt.to.getElementsByTagName('div'));
 
                 fetch("/reorder", {
                     method: "POST",

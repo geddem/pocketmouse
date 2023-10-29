@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 var database = require("../database");
 
-
+///
+/// View Tasks
+///
 router.get("/", function(request, response, next) {
 
     // 
@@ -16,7 +18,6 @@ router.get("/", function(request, response, next) {
             response.render("task_list", { title: "Display The Task List", action: 'list', tasks: data });
         }
     });
-
 });
 
 router.post("/reorder", function(request, response, next) {
@@ -40,6 +41,78 @@ router.post("/reorder", function(request, response, next) {
     response.status(200);
 });
 
+
+///
+/// View Archive
+///
+router.get("/archive", function(request, response, next) {
+
+    // Query the DB
+    var query = "SELECT * FROM burrow.tasks WHERE active = 0 ORDER BY priority DESC";
+
+    database.query(query, function(err, data) {
+        if (err) {
+            throw error;
+        } else {
+            // this used to render a view
+            response.render("task_archive", { tasks: data });
+        }
+    });
+});
+
+router.get("/do_archive", function(request, response, next) {
+
+    // Get the task id
+    taskId = request.query.taskId;
+    value = request.query.value =="true"?0:1;
+    console.log("Archiving : " + taskId);
+
+    var query = "UPDATE burrow.tasks SET active = " + value + " WHERE burrow.tasks.id = " + taskId + ";\n";
+
+    database.query(query, function(err, data) 
+    {
+        if (err) 
+        {
+            throw err;
+        }
+        else
+        {
+            if(value==0)
+            {
+                // Go back to the archive
+                response.redirect('/archive');
+            }
+            else
+            {
+                // Go to the task list
+                response.redirect('/');
+            }
+
+            return;
+        }
+    });
+});
+
+router.get("/do_delete", function(request, response, next) {
+
+    taskId = request.query.taskId;
+    var query = "DELETE FROM burrow.tasks WHERE burrow.tasks.id = " + taskId + ";\n";
+
+    database.query(query, function(err, data) {
+        if (err) {
+            throw err;
+        } else {
+            // Go to the task list
+            response.redirect('/');
+        }
+    });
+});
+
+
+
+///
+/// Edit Task
+///
 router.get("/edit", function(request, response, next) {
 
     // Get the task id

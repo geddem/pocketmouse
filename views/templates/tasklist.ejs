@@ -1,0 +1,31 @@
+<div class="container">
+    <div id="pocketmouse">
+
+        <h3><%=title%></h3>
+        <h4><%=subtitle%></h4>
+        <!-- Simple List -->
+        <div id="simpleList" class="list-group">
+            <%
+            if( tasks.length > 0)
+            {
+                tasks.forEach(function(local_task)
+                {
+                %>
+                <div class="list-group-item" id="<%=local_task.id%>">
+                    <a href="/edit?taskId=<%=local_task.id%>"><i class="<%=local_task.icon%>"></i></a>&nbsp;&nbsp;
+                    <span><%=local_task.name%></span>
+                    <i class="fa-solid fa-grip-vertical" style="float: right"></i>
+                </div>
+                <%
+                });
+            }
+            else
+            {
+            }
+            %>
+        </div>
+        <!--
+        <button name="submit" type="submit" id="pocketmouse-submit" data-submit="...Sending">Submit</button>
+        -->
+    </div>
+</div>

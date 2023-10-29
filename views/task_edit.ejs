@@ -3,13 +3,38 @@
     <div class="container">
         <form id="pocketmouse" action="/do_create" method="post">
 
-            <h3>Edit Task</h3>
-            <h4>Yay! Get Organized [<%=task.id%>] </h4>
+            <div style="width: 100%;">
+                <div style="width: 50%; height: 100px; float: left;"> 
+                    <h3>Edit Task</h3>
+                    <h4>Yay! Get Organized [<%=task.active==1%>] </h4>
+                </div>
+                <div style="margin-left: 50%; height: 100px;">                 
+                    <% if( task.active==1 ) {
+                        %><button class="button-42 btnfloat" role="button" type="button" title="Archive" onclick="window.location.href='/do_archive?taskId=<%=task.id%>&value=true';"><i class="fa-solid fa-box-archive"></i></button><%
+                    }else{
+                        %><button class="button-42 btnfloat" role="button" type="button" title="Unarchive" onclick="window.location.href='/do_archive?taskId=<%=task.id%>&value=false';"><i class="fa-solid fa-box-open"></i></button><%
+                    }%>
+                    
+                    <button class="button-42 btnfloat" role="button" type="button" title="Mark Complete"><i class="fa-solid fa-flag-checkered"></i></button>
+                    <button class="button-42 btnfloat" role="button" type="button" title="Trash" onclick="deleteTask()"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
             
             <%- include("templates/task_form.ejs",  {task: task})%>
 
             <p class="copyright">Cool link <a href="https://desertowlgames.com" target="_blank">Goes Here</a></p>
         </form>
     </div>
+
+
+    <script>
+        function deleteTask() {
+            var doc;
+            var result = confirm("Are you sure you want to delete this task? This is not reverseable!");
+            if (result == true) {
+                window.location.href='/do_delete?taskId=<%=task.id%>';
+            }
+        }        
+    </script>
 
     <%- include("footer.ejs") %>
