@@ -1,5 +1,6 @@
 <%- include("header.ejs",  {active: "Edit"})%>
 
+
     <div class="container">
         <form id="pocketmouse" action="/do_edit" method="post">
 
@@ -17,15 +18,20 @@
                     
                     <button class="button-42 btnfloat" role="button" type="button" title="Mark Complete"><i class="fa-solid fa-flag-checkered"></i></button>
                     <button class="button-42 btnfloat" role="button" type="button" title="Trash" onclick="deleteTask()"><i class="fa-solid fa-trash"></i></button>
+
+                    <!-- Button tag -->
+                    
                 </div>
             </div>
-            
+
             <%- include("templates/task_form.ejs",  {task: task})%>
             <input type="hidden" id="taskId" name="taskId" value="<%=task.id%>">
 
             <p class="copyright">Cool link <a href="https://desertowlgames.com" target="_blank">Goes Here</a></p>
         </form>
     </div>
+
+
 
 
     <script>

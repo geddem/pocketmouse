@@ -12,11 +12,9 @@
     <link href="include/fontawesome/css/fontawesome.css" rel="stylesheet">
     <link href="include/fontawesome/css/brands.css" rel="stylesheet">
     <link href="include/fontawesome/css/solid.css" rel="stylesheet">
-
-    <script src="include/sortable.js" defer></script>
 </head>
 
-<body>
+<body class="modal-open">
     <div class="navbar">
         <a href="/" <%if(active=="Tasks" ){%>class="active"<%}%>><i class="fa-solid fa-list-check"></i> Tasks</a>
         <a href="/create" <%if(active=="Create" ){%>class="active"<%}%>><i class="fa-solid fa-plus"></i> Create</a>

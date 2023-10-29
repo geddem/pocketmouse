@@ -135,43 +135,16 @@ router.post("/do_edit", function(request, response, next) {
     //console.log("BLOB data " + request.body.content);
 
     var taskId = request.body.taskId;
+    var name = request.body.name;
+    var icon = request.body.icon;
     var content = request.body.content;
 
-    /*
-    database.query("UPDATE burrow.tasks SET content = (?) WHERE burrow.tasks.id = " +taskId, { content }, function(err, res) {
-    //database.query(query, values, )
-        if (err) throw err;
-        console.log("BLOB data inserted! task " + taskId);
-
-      });
-      */
-      var query = "UPDATE burrow.tasks SET burrow.tasks.content = (?) WHERE burrow.tasks.id = " +taskId;
-    database.query(query, content, function(err, data)
+    var query = "UPDATE burrow.tasks SET name = (?), icon = (?), burrow.tasks.content = (?) WHERE burrow.tasks.id = " +taskId;
+    database.query(query, [name, icon, content], function(err, data)
     {
         if (err) throw err;
-        console.log("BLOB data inserted! task " + taskId);
+        response.redirect('/');
     });
-    /*
-    request.body.name
-    // Get the task id
-    var taskId = request.query.taskId;
-
-    var query = "UPDATE burrow.tasks SET "
-        + " name = '"+request.body.name+"'" 
-        + " icon = '"+request.body.icon+"'" 
-        + " icon = '"+request.body.icon+"'" 
-    
-        + " WHERE burrow.tasks.id = " + taskId + ";\n";
-
-    database.query(query, function(err, data) {
-        if (err) {
-            throw err;
-        } else {
-            // this used to render a view
-            response.render("task_edit", { task: data[0]});
-        }
-    });
-    */
 });
 
 router.get("/create", function(request, response, next) {
