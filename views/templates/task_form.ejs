@@ -8,5 +8,22 @@
     <textarea placeholder="Summary / Descriptions here" tabindex="3" name="description" required><%=task.description%></textarea>
 </fieldset>
 <fieldset>
+    <textarea id="content_area" name="content"><%=task.content%></textarea>
+</fieldset>
+<fieldset>
     <button name="submit" type="submit" id="pocketmouse-submit" data-submit="...Sending">Submit</button>
 </fieldset>
+
+
+
+
+
+<script src="node_modules/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+tinymce.init({
+  selector: '#content_area',
+  promotion: false
+});
+
+</script>
+

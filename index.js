@@ -4,10 +4,12 @@ const path = require('path');
 const PORT = process.env.PORT || 3500;
 
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded());
+app.use(express.urlencoded({limit: '50mb'}));
 
 // Parse JSON bodies (as sent by API clients)
-app.use(express.json());
+app.use(express.json({limit: '50mb'}));
+
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -46,6 +48,7 @@ app.use('/', sampledataRouter);
 
 // Allow the include directory to be public
 app.use('/include', express.static('include'))
+app.use('/node_modules', express.static('node_modules'))
 
 
 app.listen(PORT, function() {

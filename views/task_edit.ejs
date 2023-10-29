@@ -1,7 +1,7 @@
-<%- include("header.ejs",  {active: "Create"})%>
+<%- include("header.ejs",  {active: "Edit"})%>
 
     <div class="container">
-        <form id="pocketmouse" action="/do_create" method="post">
+        <form id="pocketmouse" action="/do_edit" method="post">
 
             <div style="width: 100%;">
                 <div style="width: 50%; height: 100px; float: left;"> 
@@ -21,6 +21,7 @@
             </div>
             
             <%- include("templates/task_form.ejs",  {task: task})%>
+            <input type="hidden" id="taskId" name="taskId" value="<%=task.id%>">
 
             <p class="copyright">Cool link <a href="https://desertowlgames.com" target="_blank">Goes Here</a></p>
         </form>
