@@ -1,15 +1,13 @@
 <%- include("header.ejs",  {active: "Tasks"}) %>
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
-    <script src="include/sortable.js" defer></script>
-    <script src="include/script.js" defer></script>
 
     <!-- Latest Sortable -->
     <!-- https://sortablejs.github.io/Sortable/ -->
-    <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+    <script src="include/sortable.js"></script>
 
-    <%- include("templates/tasklist.ejs",  {title: "Current Tasks", subtitle:"Do work!", tasks: tasks})%>
+    <div class="mainbox container">
+        <%- include("templates/tasklist.ejs",  {title: "Current Tasks", subtitle:"Do work!", tasks: tasks})%>
+    </div>
 
     <script language="Javascript">
         // Create the csv to reorder the list
@@ -41,8 +39,14 @@
                         "Content-type": "application/json; charset=UTF-8"
                     }
                 }) /*.then((response) => alert(response.status))*/ ;
+            },
 
-            }
+            ontouchstart: function( evt ){
+                alert("started!");
+            },
+            onclick: function( evt ){
+                alert("started!");
+            }            
         });
     </script>
     <%- include("footer.ejs") %>

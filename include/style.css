@@ -79,6 +79,7 @@ i) {
     height: min-content;
     background-color: #aaa;
     overflow: auto;
+    z-index: 100;
 }
 
 

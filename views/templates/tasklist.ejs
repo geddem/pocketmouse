@@ -1,8 +1,9 @@
-<div class="container">
+<div class="mainbox container">
     <div id="pocketmouse">
 
         <h3><%=title%></h3>
         <h4><%=subtitle%></h4>
+
         <!-- Simple List -->
         <div id="simpleList" class="list-group">
             <%
@@ -11,11 +12,13 @@
                 tasks.forEach(function(local_task)
                 {
                 %>
-                <div class="list-group-item" id="<%=local_task.id%>">
-                    <a href="/edit?taskId=<%=local_task.id%>"><i class="<%=local_task.icon%>"></i></a>&nbsp;&nbsp;
-                    <span><%=local_task.name%></span>
-                    <i class="fa-solid fa-grip-vertical" style="float: right"></i>
-                </div>
+                <a href="/edit?taskId=<%=local_task.id%>">
+                    <div class="list-group-item" id="<%=local_task.id%>">
+                        <i class="<%=local_task.icon%>"></i>&nbsp;&nbsp;
+                        <span id="<%=local_task.id%>"><%=local_task.name%></span>
+                        <i class="fa-solid fa-grip-vertical" style="float: right"></i>
+                    </div>
+                </a>
                 <%
                 });
             }
@@ -26,3 +29,92 @@
         </div>
     </div>
 </div>
+
+
+
+<!--
+<div class="box" id="woogiter" name="woogiter" style="background-color: rgb(216, 190, 233); height: 300px; width: 300px; margin-top: 600px;">asdf</div>
+-->
+<script>
+
+var lastStart = 0;
+var touchValid = false;
+function getTaskId(e)
+{
+    var taskId = e.target.id;
+    //document.getElementById("woogiter").innerHTML = taskId;
+    return taskId;
+}
+
+function onTouchStart(e)
+{
+    e.target.style.backgroundColor = 'yellow';
+    lastStart = Date.now();
+    touchValid = true;
+}
+function onTouchMove(e)
+{
+    touchValid = false;
+}
+function onTouchEnd(e)
+{
+    if(!touchValid) return;
+    e.target.style.backgroundColor = 'orange';
+    
+    var delta = Date.now() - lastStart;
+    //document.getElementById("woogiter").innerHTML = delta;
+    
+    if( delta < 200 )
+    {
+        onActivate(e);
+    }
+}
+
+function onActivate(e)
+{
+    e.target.style.backgroundColor = 'pink';
+    //document.getElementById("woogiter").innerHTML = "/edit?taskId=" + getTaskId(e);
+    window.location.href='/edit?taskId=' + getTaskId(e);
+}
+
+const allItems = document.getElementsByClassName("list-group-item");
+
+for (let i = 0; i < allItems.length; i++) 
+{
+    var element = allItems[i];
+    element.addEventListener('touchstart', onTouchStart, element);
+    element.addEventListener('touchend', onTouchEnd, element);
+    element.addEventListener('touchmove', onTouchMove, element);
+    element.addEventListener('onclick', onActivate, element);
+}
+</script>
+
+<!-- touch debug 
+<script>
+
+var element = document.getElementById("woogiter");
+// Event handler for mouseover to assign random background color.
+element.addEventListener('mouseover', function(e) {
+    // Sets the current target's (element) background color to green.
+    e.target.style.backgroundColor = 'green';
+    //document.getElementById("woogiter").innerHTML = "My new text!";
+    //e.attr("_touch", Date.now());
+    lastStart = Date.now();
+});
+
+element.addEventListener('onclick', function(e) {
+    // Sets the current target's (element) background color to green.
+    e.target.style.backgroundColor = 'orange';
+});
+
+element.addEventListener('touchstart', function(e) {
+    // Sets the current target's (element) background color to green.
+    e.target.style.backgroundColor = 'yellow';
+});
+element.addEventListener('touchend', function(e) {
+    // Sets the current target's (element) background color to green.
+    e.target.style.backgroundColor = 'pink';
+    window.location.href='/create';
+});
+</script>
+-->

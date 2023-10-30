@@ -1,13 +1,12 @@
 <%- include("header.ejs",  {active: "Edit"})%>
 
-
-    <div class="container">
+    <div class="mainbox container">
         <form id="pocketmouse" action="/do_edit" method="post">
 
             <div style="width: 100%;">
                 <div style="width: 50%; height: 100px; float: left;"> 
                     <h3>Edit Task</h3>
-                    <h4>Yay! Get Organized [<%=task.active==1%>] </h4>
+                    <h4>Yay! Get Organized</h4>
                 </div>
                 <div style="margin-left: 50%; height: 100px;">                 
                     <% if( task.active==1 ) {
@@ -18,9 +17,6 @@
                     
                     <button class="button-42 btnfloat" role="button" type="button" title="Mark Complete"><i class="fa-solid fa-flag-checkered"></i></button>
                     <button class="button-42 btnfloat" role="button" type="button" title="Trash" onclick="deleteTask()"><i class="fa-solid fa-trash"></i></button>
-
-                    <!-- Button tag -->
-                    
                 </div>
             </div>
 

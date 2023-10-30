@@ -1,5 +1,6 @@
 <%- include("header.ejs",  {active: "Archive"}) %>
 
-    <%- include("templates/tasklist.ejs",  {title: "Task Archive", subtitle:"Yesterday's business.", tasks: tasks})%>
-
+    <div class="mainbox container">
+        <%- include("templates/tasklist.ejs",  {title: "Task Archive", subtitle:"Yesterday's business.", tasks: tasks})%>
+    </div>
 <%- include("footer.ejs") %>
