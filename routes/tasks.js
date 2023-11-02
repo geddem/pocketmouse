@@ -137,7 +137,8 @@ router.post("/do_edit", function(request, response, next) {
     var taskId = request.body.taskId;
     var name = request.body.name;
     var icon = request.body.icon;
-    var content = request.body.content;
+    //var content = request.body.content;
+    const content = new Buffer.from(request.body.content);
 
     var query = "UPDATE burrow.tasks SET name = (?), icon = (?), burrow.tasks.content = (?) WHERE burrow.tasks.id = " +taskId;
     database.query(query, [name, icon, content], function(err, data)
@@ -153,19 +154,25 @@ router.get("/create", function(request, response, next) {
 
 router.post("/do_create", function(request, response, next) {
 
-    var query = "INSERT INTO burrow.tasks (name, description) VALUES (\"" + request.body.name + "\", \"" + request.body.description + "\" )";
-    console.log(query);
+    //var query = "INSERT INTO burrow.tasks (name, icon, content) VALUES (\"" + request.body.name + "\", \"" + request.body.description + "\" )";
+    var query = "INSERT INTO burrow.tasks (name, icon, burrow.tasks.content) VALUES ( ?, ?, ? )";
+    //var query = "INSERT INTO burrow.tasks (burrow.tasks.name, burrow.tasks.icon) VALUES ( ?, ? )";
 
-    database.query(query, function(err, data) {
+    var name = request.body.name.toString();
+    var icon = request.body.icon;
+    var content = request.body.content;    
+
+    //database.query(query [name, icon, content], function(err, data) {
+    database.query(query, [name, icon, content], function(err, data) 
+    {
         if (err) {
-            throw error;
+            throw err;
         } else {
             // Everything is ok!
             response.redirect('/');
             return;
         }
     });
-
 
 });
 
